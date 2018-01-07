@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/CertificationRecognition-dataCreatorte.iml" filepath="$PROJECT_DIR$/.idea/CertificationRecognition-dataCreatorte.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CertificationRecognition-dataCreator.iml" filepath="$PROJECT_DIR$/.idea/CertificationRecognition-dataCreator.iml" />
     </modules>
   </component>
 </project>
