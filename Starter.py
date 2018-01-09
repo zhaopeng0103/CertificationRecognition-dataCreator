@@ -16,6 +16,8 @@ cellBorders = [xlwt.Borders.NO_LINE, xlwt.Borders.THIN, xlwt.Borders.MEDIUM, xlw
 colorIndex = { "Black": 0, "White" : 1, "Red" : 2, "Green" : 3, "Blue" : 4, "Yellow" : 5, "Magenta" : 6,
                "Cyan" : 7, "Maroon" : 16, "Dark Green" : 17, "Dark Blue" : 18, "Dark Yellow" : 19,
                "Dark Magenta" : 20, "Teal" : 21, "Light Gray" : 22, "Dark Gray" : 23 }
+start_index = 2
+merge_num = 4
 
 def getResultFromDB(host, username, password, db, sqlStr):
     # 连接数据库，执行sql
@@ -47,7 +49,7 @@ def setStyle(fontHeight, colorIndex, fontBold, fontUnderline, fontEscapement, fo
 
     font = xlwt.Font()
     font.name = 'Times New Roman'
-    font.height = fontHeight
+    font.height = fontHeight;
     font.colour_index = colorIndex
     font.bold = fontBold
     font.italic = False
@@ -79,20 +81,22 @@ def writeData(sheet, rowKey, dataValue, titleStyle, keyStyle, valueStyle):
     sheet.col(0).width = 2000
     sheet.col(1).width = 5000
     sheet.col(2).width = 20000
-    sheet.col(3).width = 6000
+    sheet.col(3).width = 4000
     sheet.col(4).width = 5000
     sheet.col(5).width = 20000
     sheet.col(6).width = 2000
 
-    sheet.write_merge(1, 1, 1, 2, "  12  （2016）  苏州市  不动产权第  201712310001  号  ", titleStyle)
+    sheet.write_merge(start_index, start_index + merge_num - 1, 1, 2, "  12  （2016）  苏州市  不动产权第  201712310001  号  ", titleStyle)
     for i in range(rows - 1):
-        sheet.write(i + 2, 1, rowKey[i], keyStyle)
-        sheet.write(i + 2, 2, dataValue[i], valueStyle)
-    sheet.write_merge(rows + 1, rows + 4, 1, 1, rowKey[rows - 1], keyStyle)
-    sheet.write_merge(rows + 1, rows + 4, 2, 2, dataValue[rows - 1], valueStyle)
+        sheet.write_merge(merge_num*(i + 2) - 2, merge_num*(i + 3) - 3, 1, 1, rowKey[i], keyStyle)
+        sheet.write_merge(merge_num*(i + 2) - 2, merge_num*(i + 3) - 3, 2, 2, dataValue[i], valueStyle)
+    sheet.write_merge(merge_num*(rows + 1) - 2, merge_num*(rows + 4) - 3, 1, 1, rowKey[rows - 1], keyStyle)
+    sheet.write_merge(merge_num*(rows + 1) - 2, merge_num*(rows + 4) - 3, 2, 2, dataValue[rows - 1], valueStyle)
 
-    sheet.write_merge(1, 1, 4, 5, "附    记", titleStyle)
-    sheet.write_merge(2, rows + 4, 4, 5, "1、房屋多人共同所有；", valueStyle)
+    sheet.write_merge(start_index, start_index + merge_num - 1, 4, 5, "附    记", titleStyle)
+    sheet.write_merge(start_index + merge_num, merge_num*(rows + 4) - 3, 4, 5, "1、房屋多人共同所有；", valueStyle)
+
+    sheet.write_merge(merge_num*(rows + 4) - 2, merge_num*(rows + 4), 0, 6, "", titleStyle)
 
 
 if __name__ == "__main__":
