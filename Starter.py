@@ -35,7 +35,7 @@ def createWorkbook():
 
 def saveWorkbook(workbook):
     excelTime = time.strftime("%Y%m%d")
-    workbook.save(excelTime + "cert.xls")
+    workbook.save("output\\" + excelTime + "cert.xls")
     print("Save OK")
 
 

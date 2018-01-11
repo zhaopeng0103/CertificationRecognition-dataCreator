@@ -1,5 +1,6 @@
 import random
 import string
+import time
 
 # 生成随机整数
 def produceRandomInt(min, max):
@@ -28,4 +29,20 @@ def joinRandomString(list, num):
 # 随机选取字符串
 # list:['apple', 'pear', 'peach', 'orange', 'lemon']
 def produceRandomString(list):
-    return  random.choice(list)
+    return random.choice(list)
+
+# 生成随机日期字符串
+def produceRandomTime():
+    a1 = (2020,1,1,0,0,0,0,0,0)         #设置开始日期时间元组（2020-01-01 00：00：00）
+    a2 = (2050,12,31,23,59,59,0,0,0)    #设置结束日期时间元组（2050-12-31 23：59：59）
+
+    start = time.mktime(a1)             #生成开始时间戳
+    end = time.mktime(a2)               #生成结束时间戳
+    
+    t = produceRandomInt(start,end)       #在开始和结束时间戳中随机取出一个
+    date_touple = time.localtime(t)     #将时间戳生成时间元组
+    return time.strftime("%Y年%m月%d日", date_touple)
+
+
+
+
