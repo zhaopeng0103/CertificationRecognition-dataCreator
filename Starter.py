@@ -3,6 +3,7 @@
 import os
 import time
 import xlwt
+from data import produceData
 
 fontUnderline = [xlwt.Font.UNDERLINE_NONE, xlwt.Font.UNDERLINE_SINGLE, xlwt.Font.UNDERLINE_SINGLE_ACC,
                  xlwt.Font.UNDERLINE_DOUBLE, xlwt.Font.UNDERLINE_DOUBLE_ACC]
@@ -49,7 +50,7 @@ def setStyle(fontHeight, colorIndex, fontBold, fontUnderline, fontEscapement, fo
 
     font = xlwt.Font()
     font.name = 'Times New Roman'
-    font.height = fontHeight;
+    font.height = fontHeight
     font.colour_index = colorIndex
     font.bold = fontBold
     font.italic = False
@@ -107,7 +108,8 @@ if __name__ == "__main__":
     sqlStr = 'SELECT * FROM RealEstateCert;'
 
     rowKey = ['权利人', '共有情况', '坐落', '不动产单元号', '权利类型', '权利性质', '用途', '面积', '使用期限', '权利其他情况']
-    dataValue = ['赵鹏', '共同共有', '彭义里40号', '320508 024003 GB01700 12457896', '国有建设用地使用权/房屋（构建物）所有权', '划拨', '城镇住宅用地/成套住宅', '分摊土地面积24.80平方米/房屋建筑面积63.7平方米', '截止到2030年12月31日', '房屋结构：混合']
+    # dataValue = ['赵鹏', '共同共有', '彭义里40号', '320508 024003 GB01700 12457896', '国有建设用地使用权/房屋（构建物）所有权', '划拨', '城镇住宅用地/成套住宅', '分摊土地面积24.80平方米/房屋建筑面积63.7平方米', '截止到2030年12月31日', '房屋结构：混合']
+    dataValue = produceData()
 
     titleStyle = setStyle(350, colorIndex["Black"], True, fontUnderline[0], fontEscapement[0], fontFamily[0], cellBorders[0])
     keyStyle = setStyle(300, colorIndex["Black"], True, fontUnderline[0], fontEscapement[0], fontFamily[0], cellBorders[2])
