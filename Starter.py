@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # encoding=UTF-8
 import os
-import time
 import xlwt
+import uuid
 from data import produceData
 
 fontUnderline = [xlwt.Font.UNDERLINE_NONE, xlwt.Font.UNDERLINE_SINGLE, xlwt.Font.UNDERLINE_SINGLE_ACC,
@@ -35,8 +35,7 @@ def createWorkbook():
 
 
 def saveWorkbook(workbook):
-    excelTime = time.strftime("%Y%m%d")
-    workbook.save("output\\" + excelTime + "cert.xls")
+    workbook.save("output\\" + str(uuid.uuid4()) + ".xls")
     print("Save OK")
 
 
@@ -87,7 +86,7 @@ def writeData(sheet, rowKey, dataValue, titleStyle, keyStyle, valueStyle):
     sheet.col(5).width = 20000
     sheet.col(6).width = 2000
 
-    sheet.write_merge(start_index, start_index + merge_num - 1, 1, 2, "  12  （2016）  苏州市  不动产权第  201712310001  号  ", titleStyle)
+    sheet.write_merge(start_index, start_index + merge_num - 1, 1, 2, "  12  （2017）  苏州市  不动产权第  " + dataValue[3].split(" ")[3] + "  号  ", titleStyle)
     for i in range(rows - 1):
         sheet.write_merge(merge_num*(i + 2) - 2, merge_num*(i + 3) - 3, 1, 1, rowKey[i], keyStyle)
         sheet.write_merge(merge_num*(i + 2) - 2, merge_num*(i + 3) - 3, 2, 2, dataValue[i], valueStyle)
@@ -95,7 +94,7 @@ def writeData(sheet, rowKey, dataValue, titleStyle, keyStyle, valueStyle):
     sheet.write_merge(merge_num*(rows + 1) - 2, merge_num*(rows + 4) - 3, 2, 2, dataValue[rows - 1], valueStyle)
 
     sheet.write_merge(start_index, start_index + merge_num - 1, 4, 5, "附    记", titleStyle)
-    sheet.write_merge(start_index + merge_num, merge_num*(rows + 4) - 3, 4, 5, "1、房屋多人共同所有；", valueStyle)
+    sheet.write_merge(start_index + merge_num, merge_num*(rows + 4) - 3, 4, 5, "1、" + dataValue[rows], valueStyle)
 
     sheet.write_merge(merge_num*(rows + 4) - 2, merge_num*(rows + 4), 0, 6, "", titleStyle)
 
@@ -107,15 +106,16 @@ if __name__ == "__main__":
     db = 'cert'
     sqlStr = 'SELECT * FROM RealEstateCert;'
 
-    rowKey = ['权利人', '共有情况', '坐落', '不动产单元号', '权利类型', '权利性质', '用途', '面积', '使用期限', '权利其他情况']
-    # dataValue = ['赵鹏', '共同共有', '彭义里40号', '320508 024003 GB01700 12457896', '国有建设用地使用权/房屋（构建物）所有权', '划拨', '城镇住宅用地/成套住宅', '分摊土地面积24.80平方米/房屋建筑面积63.7平方米', '截止到2030年12月31日', '房屋结构：混合']
-    dataValue = produceData()
+    for index in range(2):
+        rowKey = ['权利人', '共有情况', '坐落', '不动产单元号', '权利类型', '权利性质', '用途', '面积', '使用期限', '权利其他情况']
+        # dataValue = ['赵鹏', '共同共有', '彭义里40号', '320508 024003 GB01700 12457896', '国有建设用地使用权/房屋（构建物）所有权', '划拨', '城镇住宅用地/成套住宅', '分摊土地面积24.80平方米/房屋建筑面积63.7平方米', '截止到2030年12月31日', '房屋结构：混合']
+        dataValue = produceData()
 
-    titleStyle = setStyle(350, colorIndex["Black"], True, fontUnderline[0], fontEscapement[0], fontFamily[0], cellBorders[0])
-    keyStyle = setStyle(300, colorIndex["Black"], True, fontUnderline[0], fontEscapement[0], fontFamily[0], cellBorders[2])
-    valueStyle = setStyle(300, colorIndex["Black"], False, fontUnderline[0], fontEscapement[0], fontFamily[0], cellBorders[2])
+        titleStyle = setStyle(350, colorIndex["Black"], True, fontUnderline[0], fontEscapement[0], fontFamily[0], cellBorders[0])
+        keyStyle = setStyle(300, colorIndex["Black"], True, fontUnderline[0], fontEscapement[0], fontFamily[0], cellBorders[2])
+        valueStyle = setStyle(300, colorIndex["Black"], False, fontUnderline[0], fontEscapement[0], fontFamily[0], cellBorders[2])
 
-    workbook = createWorkbook()
-    sheet = createSheet(workbook)
-    writeData(sheet, rowKey, dataValue, titleStyle, keyStyle, valueStyle)
-    saveWorkbook(workbook)
+        workbook = createWorkbook()
+        sheet = createSheet(workbook)
+        writeData(sheet, rowKey, dataValue, titleStyle, keyStyle, valueStyle)
+        saveWorkbook(workbook)

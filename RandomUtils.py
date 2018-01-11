@@ -51,4 +51,4 @@ def produceRandomTime(startYear, endYear):
 
     t = produceRandomInt(start, end)  # 在开始和结束时间戳中随机取出一个
     date_touple = time.localtime(t)  # 将时间戳生成时间元组
-    return time.strftime("%Y年%m月%d日", date_touple)
+    return time.strftime("%Y-%m-%d", date_touple)
