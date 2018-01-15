@@ -8,19 +8,19 @@ def getData(connection):
     # 指定数据库名称
     db = client.wechatReading
     # 获取集合名
-    wechat_records = db.wechat_record
+    wechat_records = db.wr_record
     count = wechat_records.count()
     data = [["" for col in range(3)] for row in range(count)]
     index = 0
     for record in wechat_records.find():
         if record["type"] == "LINK":
-            data[index][0] = 1
-            data[index][1] = ""
-            data[index][2] = record["detail"]["content"]
-        if record["type"] == "TEXT":
-            data[index][0] = 2
+            data[index][0] = "晨报"
             data[index][1] = record["detail"]["title"]
             data[index][2] = record["detail"]["desc"]
+        if record["type"] == "TEXT":
+            data[index][0] = "晨报"
+            data[index][1] = ""
+            data[index][2] = record["detail"]["content"]
         index = index + 1
     return data
 
