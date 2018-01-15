@@ -1,2 +1,0 @@
-将常用文档格式（WORD、WPS、EXCEL、ET、PPT、ODP等）转换为pdf再转换为图片。
-注：运行的机器需要先安装OpenOffice。
