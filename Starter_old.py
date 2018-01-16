@@ -35,7 +35,7 @@ def createWorkbook():
 
 
 def saveWorkbook(workbook):
-    workbook.save("output/excel/" + str(uuid.uuid4()) + ".xls")
+    workbook.save("output_old/excel/" + str(uuid.uuid4()) + ".xls")
     print("Save OK")
 
 
@@ -106,7 +106,7 @@ if __name__ == "__main__":
     db = 'cert'
     sqlStr = 'SELECT * FROM RealEstateCert;'
 
-    for index in range(2):
+    for index in range(200):
         rowKey = ['权利人', '共有情况', '坐落', '不动产单元号', '权利类型', '权利性质', '用途', '面积', '使用期限', '权利其他情况']
         # dataValue = ['赵鹏', '共同共有', '彭义里40号', '320508 024003 GB01700 12457896', '国有建设用地使用权/房屋（构建物）所有权', '划拨', '城镇住宅用地/成套住宅', '分摊土地面积24.80平方米/房屋建筑面积63.7平方米', '截止到2030年12月31日', '房屋结构：混合']
         dataValue = produceData()
