@@ -35,8 +35,9 @@ def createWorkbook():
 
 
 def saveWorkbook(workbook):
-    workbook.save("output/excel/" + str(uuid.uuid4()) + ".xls")
-    print("Save OK")
+    uuid_value = str(uuid.uuid4())
+    workbook.save("output/excel/" + uuid_value + ".xls")
+    print("Save OK：" + uuid_value + ".xls")
 
 
 def createSheet(workbook):
